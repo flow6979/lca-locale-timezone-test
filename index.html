@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Locale / Timezone Test</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 40px; }
+  table { border-collapse: collapse; }
+  td, th { border: 1px solid #ccc; padding: 8px 14px; text-align: left; }
+  th { background: #f3f3f3; }
+</style>
+</head>
+<body>
+<h1>Locale / Timezone Test</h1>
+<p>Fixed instant: <b>2026-09-24T10:51:00Z</b> (same as LCNC-20511 step 16)</p>
+<table>
+  <tr><th>Field</th><th>Value</th></tr>
+  <tr><td>Formatted date</td><td id="formatted"></td></tr>
+  <tr><td>Date only</td><td id="dateOnly"></td></tr>
+  <tr><td>Time only</td><td id="timeOnly"></td></tr>
+  <tr><td>Default locale</td><td id="locale"></td></tr>
+  <tr><td>Timezone</td><td id="timezone"></td></tr>
+  <tr><td>navigator.language</td><td id="navLang"></td></tr>
+  <tr><td>navigator.languages</td><td id="navLangs"></td></tr>
+</table>
+<script>
+  var d = new Date('2026-09-24T10:51:00Z');
+  var date = d.toLocaleDateString();
+  var time = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  var o = Intl.DateTimeFormat().resolvedOptions();
+  document.getElementById('formatted').textContent = date + ' at ' + time;
+  document.getElementById('dateOnly').textContent = date;
+  document.getElementById('timeOnly').textContent = time;
+  document.getElementById('locale').textContent = o.locale;
+  document.getElementById('timezone').textContent = o.timeZone;
+  document.getElementById('navLang').textContent = navigator.language;
+  document.getElementById('navLangs').textContent = (navigator.languages || []).join(', ');
+</script>
+</body>
+</html>
